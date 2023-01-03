@@ -62,7 +62,7 @@ document.getElementById('add-button').addEventListener('click', function (event)
     }
     createData(addName, addAge, addProfession);
     read();
-
+    
     document.getElementById('input-name').value = '';
     document.getElementById('input-age').value = '';
     document.getElementById('input-profession').value = '';
@@ -87,10 +87,9 @@ function updateData(event) {
             document.getElementById('input-profession').value = data[i].profession;
 
             const addBtn = document.getElementById('add-button');
-
             const updateBtn = document.createElement('button');
             updateBtn.innerText = 'Update Data';
-
+            
             document.getElementById('button').appendChild(updateBtn);
             document.getElementById('button').removeChild(addBtn);
 
@@ -118,15 +117,22 @@ function updateData(event) {
 // read data
 function read() {
     document.getElementById('container').innerHTML = '';
-    const head = document.createElement('tr');
-    head.insertCell(0).innerHTML = 'Nama';
-    head.insertCell(1).innerHTML = 'Umur';
-    head.insertCell(2).innerHTML = 'Pekerjaan';
-    head.insertCell(3).innerHTML = 'Ubah';
-    head.insertCell(4).innerHTML = 'Hapus';
-    head.style = 'font-weight: bold; text-align: center;';
 
-    document.getElementById('container').appendChild(head);
+    if(data.length === 0) {
+        document.getElementById('container').style = 'border: none;';
+        document.getElementById('container').innerHTML = 'Data Kosong, Silahkan tambah data...';   
+    } else {
+        const head = document.createElement('tr');
+        head.insertCell(0).innerHTML = 'Nama';
+        head.insertCell(1).innerHTML = 'Umur';
+        head.insertCell(2).innerHTML = 'Pekerjaan';
+        head.insertCell(3).innerHTML = 'Ubah';
+        head.insertCell(4).innerHTML = 'Hapus';
+        head.style = 'font-weight: bold; text-align: center;';
+    
+        document.getElementById('container').appendChild(head);
+    }
+
 
     data.forEach(function (param) {
         const container = document.createElement('tr');
@@ -139,9 +145,17 @@ function read() {
         // update button
         const updateButton = document.createElement('button');
         updateButton.innerText = 'Update';
-        updateButton.onclick = updateData;
+        let x=0;     
+        updateButton.addEventListener('click', function (event) {
+            if(x === 0) {
+                updateData(event);
+            } 
+            x += 1;  
+            if(x >= 5) {
+                alert('Please Update Your Data!');
+            } 
+        });
         updateButton.id = param.id;
-        updateButton.className = 'update';
 
         container.insertCell(0).innerHTML = param.name;
         container.insertCell(1).innerHTML = param.age;
@@ -150,5 +164,7 @@ function read() {
         container.insertCell(4).appendChild(deleteButton);
 
         document.getElementById('container').appendChild(container);
+        document.getElementById('container').setAttribute('border','1');
     });
 }
+
