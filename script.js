@@ -139,12 +139,15 @@ function read() {
         // delete button
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Delete';
+        deleteButton.className = 'button-in-js';
         deleteButton.onclick = deleteData;
         deleteButton.id = param.id;
+        // deleteButton.className('button-in-js');
 
         // update button
         const updateButton = document.createElement('button');
         updateButton.innerText = 'Update';
+        updateButton.className = 'button-in-js';
         let x=0;     
         updateButton.addEventListener('click', function (event) {
             if(x === 0) {
@@ -164,7 +167,7 @@ function read() {
         container.insertCell(4).appendChild(deleteButton);
 
         document.getElementById('container').appendChild(container);
-        document.getElementById('container').setAttribute('border','1');
+        // document.getElementById('container').setAttribute('border','1');
     });
 }
 
